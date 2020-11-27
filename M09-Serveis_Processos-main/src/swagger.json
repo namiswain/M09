@@ -1,0 +1,209 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Simple Inventory API",
+    "contact": {
+      "email": "you@your-company.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "tags": [
+    {
+      "name": "admins",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [
+          "Show Players"
+        ],
+        "parameters": [],
+        "responses": {
+          "101": {
+            "description": "Principal",
+            "schema": {
+              "$ref": "#/definitions/code"
+            }
+          }
+        }
+      }
+    },
+    "/ranking": {
+      "get": {
+        "summary": "searches inventory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "position": {
+                  "type": "integer"
+                },
+                "alias": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "surname": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/players/{alias}": {
+      "get": {
+        "summary": "searches inventory",
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "101": {
+            "description": "Principal",
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          },
+          "222": {
+            "description": "Code",
+            "schema": {
+              "$ref": "#/definitions/code"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "searches inventory",
+        "description": "Player",
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Player",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "description caca",
+            "schema": {
+              "$ref": "#/definitions/code"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "searches inventory",
+        "description": "Player",
+        "parameters": [
+          {
+            "name": "alias",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Player",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "description caca",
+            "schema": {
+              "$ref": "#/definitions/code"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Player": {
+      "type": "object",
+      "required": [
+        "name",
+        "score",
+        "surname"
+      ],
+      "properties": {
+        "position": {
+          "type": "integer"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string"
+        }
+      }
+    },
+    "code": {
+      "type": "object",
+      "required": [
+        "code",
+        "error",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "error": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
